@@ -11,7 +11,8 @@ class ApiService {
   factory ApiService() => _instance;
   ApiService._internal();
 
-  final String _baseUrl = 'https://review-management-system-3qt5.onrender.com';
+  final String _baseUrl =
+      'https://review-management-system-3qt5.onrender.com/api';
   final _storage = FlutterSecureStorage();
 
   Future<Map<String, String>> _setHeaders() async {
@@ -69,7 +70,7 @@ class ApiService {
   }
 
   Future<List<Product>> getProducts() async {
-    final url = Uri.parse('$_baseUrl/products/');
+    final url = Uri.parse('$_baseUrl/products');
     try {
       final response = await http.get(url, headers: await _setHeaders());
       if (response.statusCode == 200) {
