@@ -7,9 +7,6 @@ require('dotenv').config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const authController = {
-    /**
-     * Handles user login.
-     */
     login: asyncHandler(async (req, res) => {
         const { email, password } = req.body;
 
@@ -47,9 +44,7 @@ const authController = {
         });
     }),
 
-    /**
-     * Handles user registration.
-     */
+  
     register: asyncHandler(async (req, res) => {
         const { email, password, name, role } = req.body;
 

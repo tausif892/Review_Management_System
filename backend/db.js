@@ -1,19 +1,15 @@
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcryptjs');
-require('dotenv').config(); // Load environment variables from .env
-
+require('dotenv').config(); 
 const DB_FILE = process.env.DB_FILE || './data/my_application.db';
-const saltRounds = 10; // For bcrypt hashing
+const saltRounds = 10; 
 
-// Connect to the database
 const db = new sqlite3.Database(DB_FILE, (err) => {
     if (err) {
         console.error(`Error connecting to database: ${err.message}`);
     } else {
         console.log(`Connected to SQLite database: ${DB_FILE}`);
-        // Run migrations/table creation in series
         db.serialize(() => {
-            // Create Users table
             db.run(`
                 CREATE TABLE IF NOT EXISTS users (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -27,7 +23,6 @@ const db = new sqlite3.Database(DB_FILE, (err) => {
                     console.error("Error creating users table:", err.message);
                 } else {
                     console.log("Users table created or already exists.");
-                    // Seed initial users if they don't exist
                     const insertUser = db.prepare("INSERT OR IGNORE INTO users (email, password, name, role) VALUES (?, ?, ?, ?)");
 
                     bcrypt.hash('password123', saltRounds, (err, hash) => {
@@ -59,7 +54,6 @@ const db = new sqlite3.Database(DB_FILE, (err) => {
                 }
             });
 
-            // Create Products table
             db.run(`
                 CREATE TABLE IF NOT EXISTS products (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -75,7 +69,6 @@ const db = new sqlite3.Database(DB_FILE, (err) => {
                     console.error("Error creating products table:", err.message);
                 } else {
                     console.log("Products table created or already exists.");
-                    // Seed initial products if they don't exist
                     const insertProduct = db.prepare("INSERT OR IGNORE INTO products (id, name, description, price, image_url, average_rating, review_count) VALUES (?, ?, ?, ?, ?, ?, ?)");
                     
                     insertProduct.run(1, 'Wireless Headphones', 'High-quality wireless headphones with noise cancellation', 99.99, 'https://via.placeholder.com/300x300?text=Headphones', 4.5, 120);
@@ -86,7 +79,6 @@ const db = new sqlite3.Database(DB_FILE, (err) => {
                 }
             });
 
-            // Create Reviews table
             db.run(`
                 CREATE TABLE IF NOT EXISTS reviews (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -105,7 +97,6 @@ const db = new sqlite3.Database(DB_FILE, (err) => {
                     console.error("Error creating reviews table:", err.message);
                 } else {
                     console.log("Reviews table created or already exists.");
-                    // Seed initial reviews
                     const insertReview = db.prepare("INSERT OR IGNORE INTO reviews (id, product_id, customer_id, customer_name, rating, comment, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                     insertReview.run(1, 1, 2, 'Jane Smith', 5, 'Excellent product! Highly recommended, great sound.', 'approved', new Date().toISOString());
                     insertReview.run(2, 1, 2, 'Bob Johnson', 4, 'Good headphones, comfortable but bass could be stronger.', 'pending', new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()); // 2 days ago
@@ -119,4 +110,4 @@ const db = new sqlite3.Database(DB_FILE, (err) => {
     }
 });
 
-module.exports = db; // Export the database connection
+module.exports = db; 

@@ -1,7 +1,6 @@
 var db = require('../db');
 
 var Product = {
-    // Get all products
     getAll: function(callback) {
         db.all("SELECT * FROM products", [], function(err, rows) {
             if (err) {
@@ -11,7 +10,6 @@ var Product = {
         });
     },
 
-    // Get a product by ID
     getById: function(id, callback) {
         db.get("SELECT * FROM products WHERE id = ?", [id], function(err, row) {
             if (err) {
@@ -21,7 +19,6 @@ var Product = {
         });
     },
 
-    // Create a new product
     create: function(productData, callback) {
         var name = productData.name;
         var description = productData.description;
@@ -46,7 +43,6 @@ var Product = {
         );
     },
 
-    // Update product average rating and review count
     updateRating: function(productId, callback) {
         db.get(
             "SELECT AVG(rating) AS avg_rating, COUNT(id) AS review_count FROM reviews WHERE product_id = ? AND status = 'approved'",

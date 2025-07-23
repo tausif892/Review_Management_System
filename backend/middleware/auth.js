@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config(); // Load environment variables
+require('dotenv').config(); 
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+    const token = authHeader && authHeader.split(' ')[1]; 
 
     if (token == null) {
         return res.status(401).json({ message: 'Authentication token required.' });
@@ -16,7 +16,7 @@ const authenticateToken = (req, res, next) => {
             console.error("JWT verification error:", err.message);
             return res.status(403).json({ message: 'Invalid or expired token.' });
         }
-        req.user = user; // Attach user payload to request
+        req.user = user; 
         next();
     });
 };

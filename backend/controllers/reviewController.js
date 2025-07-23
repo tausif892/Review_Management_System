@@ -1,9 +1,8 @@
 const Review = require('../models/review');
-const Product = require('../models/product'); // For updating rating after approval
+const Product = require('../models/product'); 
 const asyncHandler = require('express-async-handler');
 
 const reviewController = {
-  // ✅ Submit a new review (No auth required)
   submitReview: asyncHandler((req, res) => {
     const { productId, customerName = 'Anonymous', rating, comment } = req.body;
 
@@ -17,7 +16,6 @@ const reviewController = {
       throw new Error('Rating must be between 1 and 5.');
     }
     console.log(`This message is before going into making new review`);
-    // Use null for customerId if not needed
     Review.create({ productId, customerId: null, customerName, rating, comment }, (err, newReview) => {
       if (err) return res.status(500).json({ message: 'Failed to submit review', error: err.message });
       res.status(201).json(newReview);
@@ -25,7 +23,6 @@ const reviewController = {
     console.log(`This comment is after going into making new review`);
   }),
 
-  // ✅ Get approved reviews for a product (Public)
   getApprovedReviewsByProductId: asyncHandler((req, res) => {
     const { productId } = req.body;
 
@@ -40,7 +37,6 @@ const reviewController = {
     });
   }),
 
-  // ✅ Get all reviews for moderation (Admin use)
   getAllReviewsForModeration: asyncHandler((req, res) => {
     const { productId } = req.body;
 
@@ -55,7 +51,6 @@ const reviewController = {
     });
   }),
 
-  // ✅ Update review status (Admin use)
   updateReviewStatus: asyncHandler((req, res) => {
     const { reviewId, status } = req.body;
 
@@ -76,7 +71,6 @@ const reviewController = {
     });
   }),
 
-  // ✅ Get all reviews globally (Admin use)
   getAllReviews: asyncHandler((req, res) => {
     const { statusFilter } = req.body;
 

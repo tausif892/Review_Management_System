@@ -25,11 +25,6 @@ const productController = {
         });
     },
 
-    /**
-     * Creates a new product. (Admin Only)
-     * @param {object} req - Express request object.
-     * @param {object} res - Express response object.
-     */
     createProduct: (req, res) => {
         const { name, description, price, imageUrl } = req.body;
 
