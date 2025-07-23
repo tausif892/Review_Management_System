@@ -11,7 +11,7 @@ class ApiService {
   factory ApiService() => _instance;
   ApiService._internal();
 
-  final String _baseUrl = 'http://localhost:3000/api';
+  final String _baseUrl = 'https://review-management-system-3qt5.onrender.com';
   final _storage = FlutterSecureStorage();
 
   Future<Map<String, String>> _setHeaders() async {
@@ -112,7 +112,7 @@ class ApiService {
     required String name,
     required String description,
     required double price,
-    String imageUrl = 'https://via.placeholder.com/300x300',
+    String imageUrl = 'lib/assets/images/product_image.png',
   }) async {
     final url = Uri.parse('$_baseUrl/products');
     try {

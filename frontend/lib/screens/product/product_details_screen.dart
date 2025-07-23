@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import '../../models/product_model.dart';
 import '../../models/review_model.dart';
 import '../../services/api_service.dart';
-import '../../services/auth_service.dart'; // Import for role checking
+import '../../services/auth_service.dart';
 import '../../widgets/star_rating.dart';
-import '../customer/write_review_screen.dart'; // Import for writing reviews
+import '../customer/write_review_screen.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final String productId;
@@ -175,12 +175,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
                   // Approved Reviews (both customer and admin see these)
                   Text(
-                    'Approved Reviews (${_reviews.where((r) => r.status == 'approved').length})',
+                    'Reviews (${_reviews.where((r) => r.status == 'approved').length})',
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   SizedBox(height: 16),
                   if (_reviews.where((r) => r.status == 'approved').isEmpty)
-                    Center(child: Text('No approved reviews yet.'))
+                    Center(child: Text('No reviews yet.'))
                   else
                     ListView.builder(
                       shrinkWrap: true,
@@ -390,7 +390,7 @@ class AdminReviewCard extends StatelessWidget {
     return Card(
       margin: EdgeInsets.only(bottom: 16),
       elevation: 2,
-      color: Colors.orange[50], // Highlight pending reviews
+      color: Colors.orange[50], 
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -420,7 +420,6 @@ class AdminReviewCard extends StatelessWidget {
               children: [
                 StarRating(rating: review.rating.toDouble(), size: 20),
                 SizedBox(width: 8),
-                Text('for Product ID: ${review.productId}'),
               ],
             ),
             SizedBox(height: 8),

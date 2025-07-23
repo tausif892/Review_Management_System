@@ -25,8 +25,8 @@ class Product {
       description: json['description'] ?? '',
       price: (json['price'] ?? 0).toDouble(),
       imageUrl: json['imageUrl'] ?? 'https://via.placeholder.com/300x300',
-      averageRating: (json['averageRating'] ?? 0).toDouble(),
-      reviewCount: json['reviewCount'] ?? 0,
+      averageRating: (json['average_rating'] ?? 0).toDouble(),
+      reviewCount: json['review_count'] ?? 0,
     );
   }
 }
