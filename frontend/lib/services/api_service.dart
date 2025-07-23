@@ -69,7 +69,7 @@ class ApiService {
   }
 
   Future<List<Product>> getProducts() async {
-    final url = Uri.parse('$_baseUrl/products');
+    final url = Uri.parse('$_baseUrl/products/');
     try {
       final response = await http.get(url, headers: await _setHeaders());
       if (response.statusCode == 200) {
